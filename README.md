@@ -34,18 +34,17 @@
 ```make
 GO ?= go
 TARGET ?= ./...
-DEVKIT := github.com/skulidropek/devkitgo
+GOCACHE_DIR ?= $(PWD)/.gocache
+GOLANGCI_LINT_CACHE_DIR ?= $(PWD)/.golangci-cache
+GO_LINT_MODULE := github.com/skulidropek/devkitgo/cmd/lint@latest
+GO_LINT_BIN ?= $(shell command -v go-lint 2>/dev/null)
+GO_LINT_CMD := $(if $(GO_LINT_BIN),$(GO_LINT_BIN),$(GO) run $(GO_LINT_MODULE))
 
-.PHONY: lint instrument analyze
+.PHONY: lint
 
 lint:
-	$(GO) run $(DEVKIT)/cmd/lint@latest $(TARGET)
-
-analyze:
-	$(GO) run $(DEVKIT)/cmd/analyze@latest $(TARGET)
-
-instrument:
-	$(GO) run $(DEVKIT)/cmd/instrument@latest --src .
+	@mkdir -p $(GOCACHE_DIR) $(GOLANGCI_LINT_CACHE_DIR)
+	GOCACHE=$(GOCACHE_DIR) GOLANGCI_LINT_CACHE=$(GOLANGCI_LINT_CACHE_DIR) $(GO_LINT_CMD) $(TARGET)
 ```
 
 ## Переменные окружения
@@ -63,4 +62,3 @@ instrument:
 
 - Go 1.24.4+
 - Доступ к модульному прокси либо зеркалам, обеспечивающий загрузку зависимостей Staticcheck и прочих пакетов.
-
