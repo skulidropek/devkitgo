@@ -2,9 +2,9 @@
 
 Набор утилит, упрощающий подключение статического анализа и инструментов трассировки в Go‑проектах. Репозиторий включает три ключевые команды:
 
-- `cmd/analyze` — агрегированный статический анализатор на базе `multichecker`, Staticcheck и SMB Suggest Members Analyzer.
-- `cmd/lint` — обёртка вокруг [github.com/skulidropek/GoLint](https://github.com/skulidropek/GoLint), умеющая подтягивать зависимости без глобальной установки.
-- `cmd/instrument` — запускатор инструмента `gotrace-instrument` для автоматического добавления трассировок.
+- `cmd/analyze` — агрегированный статический анализатор на базе `multichecker`, [Staticcheck](https://github.com/dominikh/go-tools/tree/master/cmd/staticcheck) и [GoSuggestMembersAnalyzer (SMB)](https://github.com/skulidropek/GoSuggestMembersAnalyzer).
+- `cmd/lint` — обёртка вокруг [GoLint](https://github.com/skulidropek/GoLint), умеющая подтягивать зависимости без глобальной установки.
+- `cmd/instrument` — запускатор [gotrace-instrument](https://github.com/skulidropek/gotrace/tree/main/cmd/gotrace-instrument) для автоматического добавления трассировок (проект [gotrace](https://github.com/skulidropek/gotrace)).
 
 ## Быстрый старт
 
@@ -57,7 +57,7 @@ instrument:
 
 ## Обновление инструментов
 
-Команда `go generate -tags tools ./tools` устанавливает зафиксированные версии `go-lint`, `smbgo` и `gotrace-instrument` в локальный `$GOBIN`. Запускайте её после обновления `tools/tools.go` или при первой настройке окружения.
+Команда `go generate -tags tools ./tools` устанавливает зафиксированные версии [go-lint](https://github.com/skulidropek/GoLint), [smbgo](https://github.com/skulidropek/GoSuggestMembersAnalyzer/tree/main/cmd/smbgo) и [gotrace-instrument](https://github.com/skulidropek/gotrace/tree/main/cmd/gotrace-instrument) в локальный `$GOBIN`. Запускайте её после обновления `tools/tools.go` или при первой настройке окружения.
 
 ## Требования
 
